@@ -109,6 +109,10 @@
     canvasContext.fillText(player2Score, (canvas.width/4)*3, 100);
     canvasContext.fillText('Game Over', 375, 100);
     canvasContext.fillText('Click to continue...', 365, 400);
+    player2Score = 0;
+    player1Score = 0;
+    ballXSpeed = 150;
+    ballYSpeed = 150;
   }
   function ballReset(){
     ballX = canvas.width/2;
