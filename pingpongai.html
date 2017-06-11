@@ -123,6 +123,11 @@
     lossStreak = 0;
   }
   function ballReset(){
+    if(Math.random()<0.5){
+      ballXSpeed = -150
+    } else {
+      ballXSpeed = 150
+    }
     ballX = canvas.width/2;
     ballY = canvas.height/2;
     if(lossStreak >= 3){
@@ -143,7 +148,7 @@
       if(ballY > paddle2Y &&
          ballY < paddle2Y + PADDLE_HEIGHT){
         ballXSpeed = -ballXSpeed - 10;
-        computerPaddleSpeed += 20
+        computerPaddleSpeed += 2
         ballYSpeed += (ballY - paddle2YCenter)*bounceAngle;
       } else {
                if(ballX > canvas.width - ballWidth/2){
@@ -156,7 +161,7 @@
       if(ballY > paddle1Y &&
          ballY < paddle1Y + PADDLE_HEIGHT){
         ballXSpeed = -ballXSpeed + 10;
-        computerPaddleSpeed += 20
+        computerPaddleSpeed += 2
         ballYSpeed += (ballY - paddle1YCenter)*bounceAngle;
         lossStreak = 0;
        } else {

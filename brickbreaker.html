@@ -1,0 +1,142 @@
+<html>
+<canvas id='gameCanvas' width=800 height=600></canvas>
+<head>
+  <title>BrickBreaker</title>
+</head>
+<script>
+var canvas;
+var canvasContext;
+var fps = 120;
+const PADDLE_WIDTH = 100;
+const PADDLE_HEIGHT = 20;
+const PADDLE_OFFSET = 5;
+var paddleX = 350;
+var ballX = 400;
+var ballY = 500;
+var ballWidth = 10;
+var ballXSpeed = 1;
+var ballYSpeed = 200;
+var lives = 3;
+var brickRowCount = 10;
+var brickColumnCount = 9;
+var brickWidth = 75;
+var brickHeight = 20;
+var brickPadding = 10;
+var brickOffsetTop = 30;
+var brickOffsetLeft = 30;
+var brickOffsetRight = 30;
+
+var bricks = [];
+for(c=0; c<brickColumnCount; c++){
+  bricks[c] = [];
+  for(r=0; r<brickRowCount; r++){
+    bricks[c][r] = { x: 0, y: 0 };
+  }
+}
+
+function calculateMousePos(evt){
+  var rect = canvas.getBoundingClientRect();
+  var root = document.documentElement;
+  var mouseX = evt.clientX - rect.left - root.scrollLeft;
+  var mouseY = evt.clientY - rect.right - root.scrollTop;
+  return {
+    x:mouseX,
+    y:mouseY
+  }
+}
+
+window.onload = function(){
+  canvas = document.getElementById('gameCanvas');
+  canvasContext = canvas.getContext('2d');
+  canvas.addEventListener('mousemove',
+            function(evt){
+              var mousePos = calculateMousePos(evt);
+              paddleX = mousePos.x-(PADDLE_WIDTH/2);
+            })
+
+  setInterval(function(){
+    moveEverything();
+    drawEverything();
+  }, 1000/fps)
+}
+
+function moveEverything(){
+  calculateBallPos();
+  checkBallWall();
+  checkBallPaddle();
+}
+
+function drawEverything(){
+  drawRect(0, 0, canvas.width, canvas.height, 'black');
+  drawRect(paddleX, canvas.height - PADDLE_HEIGHT - PADDLE_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
+  drawBricks();
+  //draws ball
+  drawCircle();
+}
+
+function drawBricks() {
+  for(c=0; c<brickColumnCount; c++) {
+    for(r=0; r<brickRowCount; r++) {
+      var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+      var brickY = (r*(brickHeight+brickPadding))+brickOffsetRight;
+      bricks[c][r].x = 0;
+      bricks[c][r].y = 0;
+      canvasContext.beginPath();
+      canvasContext.rect(brickX, brickY, brickWidth, brickHeight);
+      canvasContext.fillStyle = 'blue';
+      canvasContext.fill();
+      canvasContext.closePath();
+    }
+  }
+}
+
+function calculateBallPos(){
+  ballX += ballXSpeed/fps;
+  ballY += ballYSpeed/fps;
+}
+
+function ballReset(){
+  ballX = 400;
+  ballY = 500;
+  ballXSpeed = 1;
+  lives --;
+  if(lives == 0){
+
+  }
+}
+
+function checkBallPaddle(){
+  var paddleCenter = paddleX + PADDLE_WIDTH/2;
+  if(ballY > canvas.height - PADDLE_OFFSET - PADDLE_HEIGHT && ballX > paddleX && ballX < paddleX + PADDLE_WIDTH){
+    ballYSpeed = -ballYSpeed;
+    ballXSpeed += (ballX - paddleCenter)*3;
+  }
+}
+
+function checkBallWall(){
+  if(ballY + ballWidth/2 > canvas.height){
+    ballReset();
+  } else if (ballY - ballWidth/2 < 0){
+    ballYSpeed = -ballYSpeed;
+  }
+  if(ballX + ballWidth/2 > canvas.width){
+    ballXSpeed = -ballXSpeed;
+  } else if (ballX - ballWidth/2 < 0){
+    ballXSpeed = -ballXSpeed;
+  }
+}
+
+function drawCircle(){
+  canvasContext.fillStyle = 'white';
+  canvasContext.beginPath();
+  canvasContext.arc(ballX, ballY, ballWidth/2, 0, Math.PI*2, true);
+  canvasContext.fill();
+}
+
+function drawRect(leftX, topY, width, height, colour){
+  canvasContext.fillStyle = colour;
+  canvasContext.fillRect(leftX, topY, width, height);
+}
+
+</script>
+</html>
