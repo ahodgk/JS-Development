@@ -128,6 +128,9 @@
     } else {
       ballXSpeed = 150
     }
+    if(computerPaddleSpeed > 10000){
+      computerPaddleSpeed = 405;
+    }
     ballX = canvas.width/2;
     ballY = canvas.height/2;
     if(lossStreak >= 3){
