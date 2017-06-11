@@ -2,6 +2,9 @@
 <head>
   <title>PingPong</title>
 </head>
+<body>
+  Simple ping pong game in JS, version V1.1 see the updates log on <a href="https://github.com/AdamH0461/pingpong"> GitHub </a>
+</body>
 <canvas id="gameCanvas" width="800" height="600"></canvas>
   <script>
   var canvas; //canvas variables
@@ -45,6 +48,8 @@
                           drawEverything()
                         }, 1000/fps);
     function handleMouse(){
+      player2Score = 0;
+      player1Score = 0;
       showingEnd = false;
     }
     canvas.addEventListener('mousedown', handleMouse);
@@ -112,8 +117,6 @@
     canvasContext.fillText(player2Score, (canvas.width/4)*3, 100);
     canvasContext.fillText('Game Over', 375, 100);
     canvasContext.fillText('Click to continue...', 365, 400);
-    player2Score = 0;
-    player1Score = 0;
     ballXSpeed = 150;
     ballYSpeed = 150;
     lossStreak = 0;
