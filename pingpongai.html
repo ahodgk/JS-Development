@@ -11,7 +11,7 @@
   var canvasContext;
   var ballX = document.getElementById('gameCanvas').width/2; //ball pos
   var ballY = document.getElementById('gameCanvas').height/2; //
-  var ballXSpeed = -150; //ball speeds
+  var ballXSpeed = -250; //ball speeds
   var ballYSpeed = 150; //speed is calculated at pixels per second
   var fps = 100; //fps update rate
   var ballWidth = 20; //ball size
@@ -124,9 +124,9 @@
   }
   function ballReset(){
     if(Math.random()<0.5){
-      ballXSpeed = -150
+      ballXSpeed = -250
     } else {
-      ballXSpeed = 150
+      ballXSpeed = 250
     }
     if(computerPaddleSpeed > 10000){
       computerPaddleSpeed = 405;
