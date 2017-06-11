@@ -150,7 +150,7 @@
     if(ballX > canvas.width - 10 - ballWidth/2){
       if(ballY > paddle2Y &&
          ballY < paddle2Y + PADDLE_HEIGHT){
-        ballXSpeed = -ballXSpeed - 10;
+        ballXSpeed = -ballXSpeed - 1;
         computerPaddleSpeed += 2
         ballYSpeed += (ballY - paddle2YCenter)*bounceAngle;
       } else {
@@ -163,7 +163,7 @@
     if(ballX < 10 + ballWidth/2){
       if(ballY > paddle1Y &&
          ballY < paddle1Y + PADDLE_HEIGHT){
-        ballXSpeed = -ballXSpeed + 10;
+        ballXSpeed = -ballXSpeed + 1;
         computerPaddleSpeed += 2
         ballYSpeed += (ballY - paddle1YCenter)*bounceAngle;
         lossStreak = 0;
