@@ -142,7 +142,7 @@
     if(ballX > canvas.width - 10 - ballWidth/2){
       if(ballY > paddle2Y &&
          ballY < paddle2Y + PADDLE_HEIGHT){
-        ballXSpeed = -ballXSpeed;
+        ballXSpeed = -ballXSpeed - 10;
         ballYSpeed += (ballY - paddle2YCenter)*bounceAngle;
       } else {
                if(ballX > canvas.width - ballWidth/2){
