@@ -104,8 +104,11 @@
       return;
     }
     calculateBallPos();
+    if(ballX<canvas.wdith/2){
+      paddle1Ai();
+    } else {
     paddle2Ai();
-    paddle1Ai();
+  }
   }
   function endScreen(){
     showingEnd = true;
