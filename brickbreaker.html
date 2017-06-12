@@ -130,8 +130,8 @@ function checkBallWall(){
 }
   
 function checkBallBrick(){
-  for(c=0, c<brickColumnCount, c++){
-    for(r=0, r<brickRowCount, r++){
+  for(c=0; c<brickColumnCount; c++){
+    for(r=0; r<brickRowCount; r++){
       b = bricks[c][r];
       if(ballX + ballWidth/2 > b.x && ballX - ballWidth/2 < b.x - PADDLE_WIDTH && ballY - ballWidth/2 < b.y && ballY + ballWidth/2 > b.y - PADDLE_HEIGHT && b.status){
         b.status = false;
