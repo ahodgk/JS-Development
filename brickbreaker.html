@@ -30,7 +30,7 @@ var bricks = [];
 for(c=0; c<brickColumnCount; c++){
   bricks[c] = [];
   for(r=0; r<brickRowCount; r++){
-    bricks[c][r] = { x: 0, y: 0 };
+    bricks[c][r] = { x: 0, y: 0, status: true };
   }
 }
 
@@ -77,15 +77,17 @@ function drawEverything(){
 function drawBricks() {
   for(c=0; c<brickColumnCount; c++) {
     for(r=0; r<brickRowCount; r++) {
-      var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
-      var brickY = (r*(brickHeight+brickPadding))+brickOffsetRight;
-      bricks[c][r].x = 0;
-      bricks[c][r].y = 0;
-      canvasContext.beginPath();
-      canvasContext.rect(brickX, brickY, brickWidth, brickHeight);
-      canvasContext.fillStyle = 'blue';
-      canvasContext.fill();
-      canvasContext.closePath();
+      if(bricks[c][r].status){
+        var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
+        var brickY = (r*(brickHeight+brickPadding))+brickOffsetRight;
+        bricks[c][r].x = 0;
+        bricks[c][r].y = 0;
+        canvasContext.beginPath();
+        canvasContext.rect(brickX, brickY, brickWidth, brickHeight);
+        canvasContext.fillStyle = 'blue';
+        canvasContext.fill();
+        canvasContext.closePath();
+      }
     }
   }
 }
@@ -123,6 +125,17 @@ function checkBallWall(){
     ballXSpeed = -ballXSpeed;
   } else if (ballX - ballWidth/2 < 0){
     ballXSpeed = -ballXSpeed;
+  }
+}
+  
+function checkBallBrick(){
+  for(c=0, c<brickColumnCount, c++){
+    for(r=0, r<brickRowCount, r++){
+      b = bricks[c][r];
+      if(ballX + ballWidth/2 > b.x && ballX - ballWidth/2 < b.x - PADDLE_WIDTH && ballY - ballWidth/2 < b.y && ballY + ballWidth/2 > b.y - PADDLE_HEIGHT && b.status){
+        b.status = false;
+      }
+    }
   }
 }
 
