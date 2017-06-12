@@ -13,7 +13,7 @@ const PADDLE_HEIGHT = 20;
 const PADDLE_OFFSET = 5;
 var paddleX = 350;
 var ballX = 400;
-var ballY = 500;
+var ballY = 400;
 var ballWidth = 10;
 var ballXSpeed = 1;
 var ballYSpeed = 200;
@@ -31,7 +31,7 @@ var bricks = [];
 for(c=0; c<brickColumnCount; c++){
   bricks[c] = [];
   for(r=0; r<brickRowCount; r++){
-    bricks[c][r] = { x: 0, y: 0, status: true };
+    bricks[c][r] = { x: 0, y: 0, status:true};
   }
 }
 
@@ -61,6 +61,25 @@ window.onload = function(){
   }, 1000/fps)
 }
 
+function checkBallBrick(){
+  for(c=0; c<brickColumnCount; c++){
+    for(r=0; r<brickRowCount; r++){
+      b = bricks[c][r];
+      //console.log(c);
+      //console.log(r);
+      if((ballX + ballWidth/2 > b.x) && (ballX - ballWidth/2 < b.x + brickWidth) && (ballY - ballWidth/2 < b.y + brickHeight) && (ballY + ballWidth/2 > b.y - brickHeight && b.status)){
+        b.status = false;
+        if(ballY - ballWidth/2 < b.y || ballY + ballWidth/2 > b.y + brickHeight){
+          ballYSpeed = -ballYSpeed;
+        }
+        if(ballX + ballWidth/2 < b.x || ballX - ballWidth/2 > b.x + brickWidth){
+          ballXSpeed = -ballXSpeed;
+        }
+      }
+    }
+  }
+}
+
 function moveEverything(){
   calculateBallPos();
   checkBallWall();
@@ -82,8 +101,8 @@ function drawBricks() {
       if(bricks[c][r].status){
         var brickX = (c*(brickWidth+brickPadding))+brickOffsetLeft;
         var brickY = (r*(brickHeight+brickPadding))+brickOffsetRight;
-        bricks[c][r].x = 0;
-        bricks[c][r].y = 0;
+        bricks[c][r].x = brickX;
+        bricks[c][r].y = brickY;
         canvasContext.beginPath();
         canvasContext.rect(brickX, brickY, brickWidth, brickHeight);
         canvasContext.fillStyle = 'blue';
@@ -129,17 +148,8 @@ function checkBallWall(){
     ballXSpeed = -ballXSpeed;
   }
 }
-  
-function checkBallBrick(){
-  for(c=0; c<brickColumnCount; c++){
-    for(r=0; r<brickRowCount; r++){
-      b = bricks[c][r];
-      if(ballX + ballWidth/2 > b.x && ballX - ballWidth/2 < b.x - PADDLE_WIDTH && ballY - ballWidth/2 < b.y && ballY + ballWidth/2 > b.y - PADDLE_HEIGHT && b.status){
-        b.status = false;
-      }
-    }
-  }
-}
+
+function drawLives
 
 function drawCircle(){
   canvasContext.fillStyle = 'white';
