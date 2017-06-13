@@ -22,7 +22,7 @@ var brickRowCount = 10;
 var brickColumnCount = 9;
 var brickWidth = 75;
 var brickHeight = 20;
-var brickPadding = 10;
+var brickPadding = 5;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var brickOffsetRight = 30;
@@ -134,7 +134,7 @@ function ballReset(){
 
 function checkBallPaddle(){
   var paddleCenter = paddleX + PADDLE_WIDTH/2;
-  if(ballY > canvas.height - PADDLE_OFFSET - PADDLE_HEIGHT && ballX > paddleX && ballX < paddleX + PADDLE_WIDTH){
+  if(ballY + ballWidth/2 > canvas.height - PADDLE_OFFSET - PADDLE_HEIGHT && ballX > paddleX && ballX < paddleX + PADDLE_WIDTH){
     ballYSpeed = -ballYSpeed;
     ballXSpeed += (ballX - paddleCenter)*3;
   }
@@ -154,6 +154,7 @@ function checkBallWall(){
 }
 
 function drawLives(){
+<<<<<<< HEAD
   for(l=1; l <= startLives; l++){
     if(l <= lives){
     canvasContext.fillStyle = 'white';
@@ -162,6 +163,8 @@ function drawLives(){
     canvasContext.fill();
     }
   }
+=======
+>>>>>>> 2395908e75701174a71da90efe0198d5c4e49e93
 }
 
 function drawCircle(){
