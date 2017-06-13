@@ -130,7 +130,7 @@ function ballReset(){
 
 function checkBallPaddle(){
   var paddleCenter = paddleX + PADDLE_WIDTH/2;
-  if(ballY > canvas.height - PADDLE_OFFSET - PADDLE_HEIGHT && ballX > paddleX && ballX < paddleX + PADDLE_WIDTH){
+  if(ballY + ballWidth/2 > canvas.height - PADDLE_OFFSET - PADDLE_HEIGHT && ballX > paddleX && ballX < paddleX + PADDLE_WIDTH){
     ballYSpeed = -ballYSpeed;
     ballXSpeed += (ballX - paddleCenter)*3;
   }
