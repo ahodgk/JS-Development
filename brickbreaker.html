@@ -1,9 +1,9 @@
 <html>
-<canvas id='gameCanvas' width=800 height=600></canvas>
 <head>
   <title>BrickBreaker</title>
+    <body><p>Brickbreaker game in JS, V1.1.0</p></body>
 </head>
-  Brickbreaker game in JS, V1.1.0
+<canvas id='gameCanvas' width=800 height=600></canvas>
 <script>
 var canvas;
 var canvasContext;
@@ -26,6 +26,9 @@ var brickPadding = 10;
 var brickOffsetTop = 30;
 var brickOffsetLeft = 30;
 var brickOffsetRight = 30;
+var startLives = 3;
+var lifeRadius = 5;
+var lifeOffset = 20;
 
 var bricks = [];
 for(c=0; c<brickColumnCount; c++){
@@ -93,6 +96,7 @@ function drawEverything(){
   drawBricks();
   //draws ball
   drawCircle();
+  drawLives();
 }
 
 function drawBricks() {
@@ -149,7 +153,16 @@ function checkBallWall(){
   }
 }
 
-function drawLives
+function drawLives(){
+  for(l=1; l <= startLives; l++){
+    if(l <= lives){
+    canvasContext.fillStyle = 'white';
+    canvasContext.beginPath();
+    canvasContext.arc(l*(lifeRadius*2+lifeOffset), lifeOffset, lifeRadius, 0, Math.PI*2, true);
+    canvasContext.fill();
+    }
+  }
+}
 
 function drawCircle(){
   canvasContext.fillStyle = 'white';
