@@ -30,21 +30,25 @@ var brickOffsetRight = 30;
 var startLives = 3;
 var lifeRadius = 5;
 var lifeOffset = 20;
+  
+var bricks = [];
+ for(c=0; c<brickColumnCount; c++){
+   bricks[c] = [];
+   for(r=0; r<brickRowCount; r++){
+     bricks[c][r] = { x: 0, y: 0, status:true};
+   }
+ }
 
-function brickSetup(){
-  var bricks = [];
-  for(c=0; c<brickColumnCount; c++){
-    bricks[c] = [];
-    for(r=0; r<brickRowCount; r++){
-      bricks[c][r] = { x: 0, y: 0, status:true};
-    }
-  }
-}
 
-brickSetup();
 
 function endScreen(){
-  brickSetup()
+  var bricks = [];
+  for(c=0; c<brickColumnCount; c++){
+     bricks[c] = [];
+     for(r=0; r<brickRowCount; r++){
+        bricks[c][r] = { x: 0, y: 0, status:true};
+   }
+ }
 }
 
 function calculateMousePos(evt){
