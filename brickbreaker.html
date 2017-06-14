@@ -41,16 +41,21 @@ var bricks = [];
    }
  }
 
-
+function handleMouseDown(evt){
+  showingEndScreen.bool = false;
+  lives = 3;
+  ballReset();
+}
 
 function endScreen(){
-  var bricks = [];
+  bricks = [];
   for(c=0; c<brickColumnCount; c++){
      bricks[c] = [];
      for(r=0; r<brickRowCount; r++){
         bricks[c][r] = { x: 0, y: 0, status:true};
    }
  }
+
   canvasContext.fillStyle = 'white';
   canvasContext.font = '15px Georgia'
   if(showingEndScreen.win){
@@ -61,12 +66,7 @@ function endScreen(){
     canvasContext.fillText(str, 300, 200);
   }
     canvasContext.fillText('Click to continue...', 350, 500)
-  canvas.addEventListener('mousedown',
-                          function(evt){
-                                        showingEndScreen = false;
-                                        lives = 3;
-                                        ballReset();
-  })
+  canvas.addEventListener('mousedown', handleMouseDown);
 }
 
 function calculateMousePos(evt){
@@ -127,6 +127,7 @@ function moveEverything(){
     endScreen();
     return;
    }
+   canvas.removeEventListener('mousedown', handleMouseDown);
   calculateBallPos();
   checkBallWall();
   checkBallPaddle();
