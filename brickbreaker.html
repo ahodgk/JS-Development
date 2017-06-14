@@ -30,6 +30,7 @@ var brickOffsetRight = 30;
 var startLives = 3;
 var lifeRadius = 5;
 var lifeOffset = 20;
+var showEndScreen = false;  
   
 var bricks = [];
  for(c=0; c<brickColumnCount; c++){
@@ -49,6 +50,12 @@ function endScreen(){
         bricks[c][r] = { x: 0, y: 0, status:true};
    }
  }
+  canvas.addEventListener('mousedown',
+                          function(evt){
+                                        showingEndScreen = false;
+                                        lives = 3;
+                                        ballReset(); 
+  }
 }
 
 function calculateMousePos(evt){
@@ -79,7 +86,7 @@ window.onload = function(){
 
 function checkBallBrick(){
   if(brickTotal == 0){
-    endScreen();
+    showingEndScreen = true;
   }
   for(c=0; c<brickColumnCount; c++){
     for(r=0; r<brickRowCount; r++){
@@ -101,6 +108,10 @@ function checkBallBrick(){
 }
 
 function moveEverything(){
+   if(showingEndScreen){
+    endScreen();
+    return;
+   }
   calculateBallPos();
   checkBallWall();
   checkBallPaddle();
@@ -108,6 +119,10 @@ function moveEverything(){
 }
 
 function drawEverything(){
+  if(showingEndScreen){
+    endScreen();
+    return;
+  }
   drawRect(0, 0, canvas.width, canvas.height, 'black');
   drawRect(paddleX, canvas.height - PADDLE_HEIGHT - PADDLE_OFFSET, PADDLE_WIDTH, PADDLE_HEIGHT, 'white');
   drawBricks();
@@ -144,8 +159,9 @@ function ballReset(){
   ballY = 400;
   ballXSpeed = 1;
   lives --;
-  if(lives == 0){
-
+  if(lives < 0){
+   showingEndScreen = true;
+  }
   }
 }
 
