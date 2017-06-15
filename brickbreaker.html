@@ -186,7 +186,7 @@ function checkBallPaddle(){
   if(ballY + ballWidth/2 > canvas.height - PADDLE_OFFSET - PADDLE_HEIGHT && ballX > paddleX && ballX < paddleX + PADDLE_WIDTH){
     ballYSpeed = -ballYSpeed;
     ballXSpeed += (ballX - paddleCenter)*3;
-    ballYSpeed -= 20
+    ballYSpeed -= 10
   }
 }
 
