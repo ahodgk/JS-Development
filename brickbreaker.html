@@ -20,7 +20,7 @@ var ballYSpeed = 200;
 var lives = 3;
 var brickRowCount = 10;
 var brickColumnCount = 9;
-var brickStart = brickRowCount * brickColumnCount;
+const BRICK_START = brickRowCount * brickColumnCount;
 var brickTotal = brickRowCount * brickColumnCount;
 var brickWidth = 75;
 var brickHeight = 20;
@@ -45,7 +45,7 @@ function handleMouseDown(evt){
   showingEndScreen.bool = false;
   lives = 3 +1;
   ballReset();
-  brickTotal = brickRowCount * brickColumnCount;
+  brickTotal = BRICK_START;
 }
 
 function endScreen(){
@@ -62,7 +62,7 @@ function endScreen(){
     var str = 'You win with ' + lives + ' lives left'
     canvasContext.fillText(str, 345, 200);
   } else {
-    var str = 'Game Over, you destroyed ' + (brickStart - brickTotal) + ' total bricks';
+    var str = 'Game Over, you destroyed ' + (BRICK_START - brickTotal) + ' total bricks';
     canvasContext.fillText(str, 300, 200);
   }
     canvasContext.fillText('Click to continue...', 350, 500)
