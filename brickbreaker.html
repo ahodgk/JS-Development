@@ -43,7 +43,7 @@ var bricks = [];
 
 function handleMouseDown(evt){
   showingEndScreen.bool = false;
-  lives = 3;
+  lives = 3 +1;
   ballReset();
 }
 
@@ -55,7 +55,6 @@ function endScreen(){
         bricks[c][r] = { x: 0, y: 0, status:true};
    }
  }
-
   canvasContext.fillStyle = 'white';
   canvasContext.font = '15px Georgia'
   if(showingEndScreen.win){
