@@ -1,7 +1,20 @@
 <html>
 	<canvas id="canvas" height=600 width=800></canvas>
-	window.onload = function(){
-	var canvas = document.getElementById("canvas");
-	ctx = canvas.getContext("2d");
-	}
+	<script>
+		var startTime;
+		var endTime;
+		var cps = 30; //checks per second
+		window.onload = function(){
+			var canvas = document.getElementById("canvas");
+			ctx = canvas.getContext("2d");
+			setInterval(function(){
+				checkClick();
+			}, 1000/cps)
+		}
+
+		function checkCick(){
+			
+		}
+
+	</script>
 </html>
