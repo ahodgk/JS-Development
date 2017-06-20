@@ -1,24 +1,32 @@
 <html>
-	<canvas id="canvas" height=600 width=800></canvas>
+	<canvas id="myCanvas" height=600 width=800></canvas>
 	<script>
-		var startTime;
+		var d = new Date();
+		var startTime = d.getTime();
 		var endTime;
 		var cps = 30; //checks per second
 		var start = {};
 		var stop = {};
+		var canvas;
+		var ctx;
 		window.onload = function(){
-			var canvas = document.getElementById("canvas");
-			ctx = canvas.getContext("2d");
+			canvas = document.getElementById('myCanvas');
+			ctx = canvas.getContext('2d');
 			setInterval(function(){
 				checkClick();
-			}, 1000/cps)
+			}, 1000)
 		}
 		function drawButtons(){
 
 		}
-		function checkCick(){
-
+		function checkClick(){
+			drawRect(0, 0, canvas.width, canvas.height, 'black');
+			ctx.fillStyle = 'white';
+			ctx.fillText(Date.getTime(), 100,100);
 		}
-
+		function drawRect(leftX, topY, width, height, colour){
+			ctx.fillStyle = colour;
+			ctx.fillRect(leftX, topY, width, height);
+		}
 	</script>
 </html>
