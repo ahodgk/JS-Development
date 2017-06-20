@@ -24,19 +24,23 @@
 			}, 1000/fps)
 		}
 
+		function checkClick(){
+			if(!paused){
+				endTime = new Date().getTime();
+			}
+			paused = true;
+			startstop.status = 'play';
+		}
+
 		function checkButtons(){
-			canvas.addEventListener('mousedown',function(){
-				if(!paused){
-					endTime = new Date().getTime();
-				}
-				paused = true;
-				startstop.status = 'play';
-			})
+			canvas.addEventListener('mousedown', checkClick)
 		}
 
 		function drawButtons(){
 			drawRect(startstop.x, startstop.y, startstop.width, startstop.height, 'white');
 			drawText(startstop.status, startstop.x, startstop.y + 20, 'black');
+			drawRect(0, 0, canvas.width, canvas.height, 'black');
+			ctx.fillStyle = 'white';
 		}
 
 		function updateTimer(){
@@ -47,9 +51,6 @@
 			}
 		}
 
-		function checkClick(){
-			drawRect(0, 0, canvas.width, canvas.height, 'black');
-			ctx.fillStyle = 'white';
 		}
 
 		function drawText(text, leftX, topY, colour){
