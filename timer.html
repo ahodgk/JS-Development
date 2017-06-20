@@ -9,21 +9,54 @@
 		var stop = {};
 		var canvas;
 		var ctx;
+		var fps = 120;
+		var paused = false;
+		var startstop = { status: 'pause', x: 200, y: 200, width: 100, height: 100};
+
 		window.onload = function(){
 			canvas = document.getElementById('myCanvas');
 			ctx = canvas.getContext('2d');
 			setInterval(function(){
+				checkButtons();
 				checkClick();
-			}, 1000)
+				updateTimer();
+				drawButtons();
+			}, 1000/fps)
 		}
-		function drawButtons(){
 
+		function checkButtons(){
+			canvas.addEventListener('mousedown',function(){
+				if(!paused){
+					endTime = new Date().getTime();
+				}
+				paused = true;
+				startstop.status = 'play';
+			})
 		}
+
+		function drawButtons(){
+			drawRect(startstop.x, startstop.y, startstop.width, startstop.height, 'white');
+			drawText(startstop.status, startstop.x, startstop.y + 20, 'black');
+		}
+
+		function updateTimer(){
+			if(!paused){
+				ctx.fillText(new Date().getTime(), 100, 100);
+			} else {
+				ctx.fillText(endTime, 100, 100);
+			}
+		}
+
 		function checkClick(){
 			drawRect(0, 0, canvas.width, canvas.height, 'black');
 			ctx.fillStyle = 'white';
-			ctx.fillText(Date.getTime(), 100,100);
 		}
+
+		function drawText(text, leftX, topY, colour){
+			ctx.fillStyle = colour;
+			ctx.fillText(text, leftX, topY);
+		}
+
 		function drawRect(leftX, topY, width, height, colour){
 			ctx.fillStyle = colour;
 			ctx.fillRect(leftX, topY, width, height);
