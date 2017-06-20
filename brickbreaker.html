@@ -68,7 +68,7 @@ function endScreen(){
     canvasContext.fillText('Click to continue...', 350, 500)
   canvas.addEventListener('mousedown', handleMouseDown);
 }
-
+//calculateing the mouse position taking in to account scroll and rect
 function calculateMousePos(evt){
   var rect = canvas.getBoundingClientRect();
   var root = document.documentElement;

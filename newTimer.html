@@ -1,17 +1,15 @@
 <html>
-	<canvas id="myCanvas" height=600 width=800></canvas>
+	<canvas id="myCanvas" height=300 width=400></canvas>
 	<script>
-		var d = new Date();
-		var startTime = d.getTime();
-		var endTime = 0;
 		var cps = 30; //checks per second
 		var start = {};
 		var stop = {};
 		var canvas;
 		var ctx;
-		var fps = 120;
+		var fps = 100;
 		var paused = false;
-		var startstop = { status: 'pause', x: 200, y: 200, width: 100, height: 100, tX: 200, tY: 220};
+		var startstop = { status: 'pause', x: 5, y: 40, width: 40, height: 20, tX: 10, tY: 50};
+		var reset = { status: 'reset', x: 5, y: 70, width: 40, height: 20, tX: 10, tY: 80};
 		var mp = { x: 0, y: 0};
 		var timeElapsed = 0;
 
@@ -49,19 +47,20 @@
 		}
 
 		function drawButtons(){
-			drawRect(startstop.x, startstop.y, startstop.width, startstop.height, 'white');
-			drawText(startstop.status, startstop.tX, startstop.tY, 'black');
+			var but = startstop;
+			drawRect(but.x, but.y, but.width, but.height, 'white');
+			drawText(but.status, but.tX, but.tY, 'black');
+			but = reset;
+			drawRect(but.x, but.y, but.width, but.height, 'white');
+			drawText(but.status, but.tX, but.tY, 'black');
 		}
 
 		function updateTimer(){
 			if(!paused){
-				timeElapsed = (new Date().getTime() + endTime - startTime)/1000;
-				drawText(timeElapsed, 100, 100, 'red');
-				var d = new Date();
-				endTime = (d.getTime() - startTime)/1000;
+				timeElapsed += 1000/fps;
+				drawText(timeElapsed/1000, 10, 15, 'red');
 			} else {
-				drawText(endTime, 100, 100, 'red');
-				timeElapsed = endTime;
+				drawText(timeElapsed/1000, 10, 15, 'red');
 			}
 		}
 
