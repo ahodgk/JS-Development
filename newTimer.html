@@ -12,6 +12,7 @@
 		var reset = { status: 'reset', x: 5, y: 70, width: 40, height: 20, tX: 10, tY: 80};
 		var mp = { x: 0, y: 0};
 		var timeElapsed = 0;
+		var but;
 
 		window.onload = function(){
 			canvas = document.getElementById('myCanvas');
@@ -29,16 +30,34 @@
 			}, 1000/fps)
 		}
 
+		function startButton(){
+			but = startstop;
+			if(!paused){
+				paused = true;
+				but.status = 'play';
+			} else {
+				paused = false;
+				but.status = 'pause';
+			}
+		}
+
+		function resetButton(){
+			if(!paused){
+				paused = true;
+				timeElapsed = 0;
+				startstop.status = 'play';
+			}
+		}
 
 		function checkClick(){
-			if(mp.x > startstop.x && mp.x < startstop.x + startstop.width && mp.y > startstop.y && mp.y < startstop.y + startstop.height){
-				if(!paused){
-					paused = true;
-					startstop.status = 'play';
-				} else {
-					paused = false;
-					startstop.status = 'pause';
-				}
+			but = startstop;
+			if(mp.x > but.x && mp.x < but.x + but.width + 10 && mp.y > but.y && mp.y < but.y + but.height + 10){
+				startButton();
+			}
+
+			but = reset;
+			if(mp.x > but.x && mp.x < but.x + but.width + 10 && mp.y > but.y && mp.y < but.y + but.height + 10){
+				resetButton();
 			}
 		}
 
@@ -47,7 +66,7 @@
 		}
 
 		function drawButtons(){
-			var but = startstop;
+			but = startstop;
 			drawRect(but.x, but.y, but.width, but.height, 'white');
 			drawText(but.status, but.tX, but.tY, 'black');
 			but = reset;
