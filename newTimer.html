@@ -13,7 +13,7 @@
 		var mp = { x: 0, y: 0};
 		var timeElapsed = 0;
 		var but;
-
+		var lap = [];
 		window.onload = function(){
 			canvas = document.getElementById('myCanvas');
 			ctx = canvas.getContext('2d');
@@ -42,10 +42,15 @@
 		}
 
 		function resetButton(){
-			if(!paused){
+			if(paused){
 				paused = true;
 				timeElapsed = 0;
 				startstop.status = 'play';
+			} else {
+				lap[lap.length] = (timeElapsed - lap.reduce(function(acc, val) {
+					return acc + val;
+				}, 0))/1000;
+				console.log(lap);
 			}
 		}
 
@@ -70,6 +75,11 @@
 			drawRect(but.x, but.y, but.width, but.height, 'white');
 			drawText(but.status, but.tX, but.tY, 'black');
 			but = reset;
+			if(!paused){
+				but.status = 'lap';
+			} else {
+				but.status = 'reset';
+			}
 			drawRect(but.x, but.y, but.width, but.height, 'white');
 			drawText(but.status, but.tX, but.tY, 'black');
 		}
