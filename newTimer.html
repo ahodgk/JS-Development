@@ -1,5 +1,5 @@
 <html>
-	<canvas id="myCanvas" height=300 width=400></canvas>
+	<canvas id="myCanvas" height=600 width=800></canvas>
 	    <body><p> Time in JS, V1.1.1b</p></body>
 	<script>
 		var cps = 30; //checks per second
@@ -7,14 +7,18 @@
 		var stop = {};
 		var canvas;
 		var ctx;
-		var fps = 100;
+		var fps = 10;
 		var paused = false;
 		var startstop = { status: 'pause', x: 5, y: 40, width: 40, height: 20, tX: 10, tY: 50};
 		var reset = { status: 'reset', x: 5, y: 70, width: 40, height: 20, tX: 10, tY: 80};
 		var mp = { x: 0, y: 0};
 		var timeElapsed = 0;
 		var but;
+		var lapDist = 20;
+		var lapXOffset = 200;
+		var lapYOffset = 20;
 		var lap = [];
+
 		window.onload = function(){
 			canvas = document.getElementById('myCanvas');
 			ctx = canvas.getContext('2d');
@@ -28,6 +32,7 @@
 				checkButtons();
 				updateTimer();
 				drawButtons();
+				drawLaps();
 			}, 1000/fps)
 		}
 
@@ -41,24 +46,39 @@
 				but.status = 'pause';
 			}
 		}
+		function addLaps(){
+			total = 0
+			for (l=0; l<lap.length; l++){
+				total += lap[l];
+			}
+			return{t: total}
+		}
 
 		function resetButton(){
 			if(paused){
 				paused = true;
 				timeElapsed = 0;
 				startstop.status = 'play';
+				lap = [];
 			} else {
-				lap[lap.length] = (timeElapsed - lap.reduce(function(acc, val) {
-					return acc + val;
-				}, 0))/1000;
+				lap[lap.length] = timeElapsed - addLaps().t;
 				console.log(lap);
+			}
+		}
+
+		function drawLaps(){
+			ctx.fillStyle = 'white';
+			for (l=0; l<lap.length; l++){
+				ctx.fillText(lap[l], lapXOffset, lapYOffset+(lapDist*l));
 			}
 		}
 
 		function checkClick(){
 			but = startstop;
 			if(mp.x > but.x && mp.x < but.x + but.width + 10 && mp.y > but.y && mp.y < but.y + but.height + 10){
-				startButton();
+				startButton();			for (l=0; l<lap.length; l++){
+				total += lap[l];
+			}
 			}
 
 			but = reset;
@@ -88,9 +108,9 @@
 		function updateTimer(){
 			if(!paused){
 				timeElapsed += 1000/fps;
-				drawText(timeElapsed/1000, 10, 15, 'red');
+				drawText((timeElapsed/1000).toFixed(1), 10, 15, 'red');
 			} else {
-				drawText(timeElapsed/1000, 10, 15, 'red');
+				drawText((timeElapsed/1000).toFixed(1), 10, 15, 'red');
 			}
 		}
 
