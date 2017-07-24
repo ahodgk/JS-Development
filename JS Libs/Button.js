@@ -1,19 +1,3 @@
-var mouseDown = false;
-var mX;
-var mY;
-document.onmousemove = function(evt){
-  var rect = cvs.getBoundingClientRect();
-  var root = document.documentElement;
-  mX = evt.clientX - rect.left - root.scrollLeft;
-  mY = evt.clientY - rect.top - root.scrollTop;
-}
-document.onmousedown = function(evt){
-  mouseDown = true;
-}
-document.onmouseup = function(){
-  mouseDown = false;
-}
-
 class Button {
   constructor(x, y, w, h, colour, text, tX, tY, tColour){
     this.x = x;
@@ -22,6 +6,8 @@ class Button {
     this.h = h;
     this.colour = colour;
     this.text = text;
+    this.tX = tX;
+    this.tY = tY;
     this.tColour = tColour;
   }
   draw(){
