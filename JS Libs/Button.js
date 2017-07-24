@@ -25,7 +25,7 @@ class Button {
     this.tColour = tColour;
   }
   draw(){
-    ctx.fillStlye = this.colour;
+    ctx.fillStyle = this.colour;
     ctx.fillRect(this.x, this.y, this.w, this.h);
     ctx.fillStyle = this.tColour;
     ctx.fillText(this.text, this.tX, this.tY);
